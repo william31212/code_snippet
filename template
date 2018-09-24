@@ -1,0 +1,14 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+	#ifdef DBG
+	freopen("input.in","r",stdin);
+	freopen("output.out","w",stdout);
+	#endif
+	
+	return 0;
+
+}
