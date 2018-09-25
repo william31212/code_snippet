@@ -17,7 +17,7 @@ void construct_tree(int input[],int segement[], int left ,int right , int pos)
 		int mid = (left + right) / 2;
 		construct_tree(input,segement,left,mid,2*pos+1);// (left + mid / 2)
 		construct_tree(input,segement,mid+1,right,2*pos+2);// (mid+1 + right / 2)
-		segement[pos] = min(segement[2*pos+1],segement[2*pos+2]);//change,min,max
+		segement[pos] = max(segement[2*pos+1],segement[2*pos+2]);//change,min,max
 	}
 }
 
@@ -29,12 +29,12 @@ int range_max(int segement[],int range_left,int range_right,int left,int right,i
 	}
 	if (range_left > right || range_right < left)//no overlap
 	{
-		return 1000000;
+		return -1000000;
 	}
 	else
 	{
 		int mid = (left + right) / 2;
-		return min(range_max(segement , range_left , range_right , left , mid , 2*pos+1), range_max(segement , range_left , range_right ,mid+1 ,right ,2*pos+2));
+		return max(range_max(segement , range_left , range_right , left , mid , 2*pos+1), range_max(segement , range_left , range_right ,mid+1 ,right ,2*pos+2));
 	}
 }
 
@@ -49,7 +49,7 @@ int main()
 	#endif
 
 	int len;
-	scanf("%d",&len);
+	scanf("%d",&len);//scan the length
 	int input[len];
 
 	for (int i = 0; i < len; ++i)
@@ -58,11 +58,11 @@ int main()
 	}
 
 
-	int segement[4*len];
+	int segement[4*len];//4 length is definetly enough
 	fill(segement,segement+4*len,0);
 	int rightmost = 0;
 
-	if (len % 2 != 0)
+	if (len % 2 == 0)
 	{
 		rightmost = (int)(log(len)/log(2)) + 1;
 	}
@@ -74,7 +74,6 @@ int main()
 	construct_tree(input,segement,0,(1<<rightmost)-1,0);
 
 
-	printf("\n");
 
 	int left,right;
 
